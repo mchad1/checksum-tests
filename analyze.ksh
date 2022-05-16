@@ -1,6 +1,6 @@
 storage_mgmt=198.19.244.194
 volume=nfsvol
-input_dir=dumpblocks-Random-Overwrite
+input_dir=$1
 
 for blocksize in 4k 8k; do
     for compress in 0 10 20 25 30 40 50 60 70 75 80 90 100; do
