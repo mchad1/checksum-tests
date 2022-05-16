@@ -1,6 +1,6 @@
 storage_mgmt=198.19.244.194
 volume=nfsvol
-output_dir=dumpblocks-Random-Overwrite
+output_dir=$1
 
 for blocksize in 4k 8k; do
     for compress in 0 10 20 25 30 40 50 60 70 75 80 90 100; do
@@ -20,12 +20,11 @@ for blocksize in 4k 8k; do
             echo "ioengine=libaio" >> ./fio.ini
             echo "direct=1" >> ./fio.ini
             echo "numjobs=1" >> ./fio.ini
+            echo "rw=randrw" >> ./fio.ini
             echo "nrfiles=1" >> ./fio.ini
-            echo "runtime=30" >> ./fio.ini
-            echo "ramp_time=" >> ./fio.ini
-            echo "rwmixread=" >> ./fio.ini
-            echo "rw=randr" >> ./fio.ini
-            echo "size=20" >> ./fio.ini
+            echo "ramp_time=1" >> ./fio.ini
+            echo "rwmixread=100" >> ./fio.ini
+            echo "size=20M" >> ./fio.ini
             echo "directory=/${volume}/compressme$compress" >> ./fio.ini
             echo "bs=$blocksize" >> ./fio.ini
             echo "norandommap" >> ./fio.ini
@@ -49,3 +48,4 @@ for blocksize in 4k 8k; do
         done
     done
 done
+
